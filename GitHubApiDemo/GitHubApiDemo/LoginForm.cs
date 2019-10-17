@@ -34,7 +34,6 @@ namespace GitHubApiDemo
         private void LoginForm_Load(object sender, EventArgs e)
         {
             authComboBox.SelectedIndex = (int)AuthenticationType.Basic;
-            RunRepo();
         }
 
         private void okButton_Click(object sender, EventArgs e) =>
@@ -156,24 +155,6 @@ namespace GitHubApiDemo
         #endregion // Private enums
 
 
-        public async void RunRepo()
-        {
-            string owner = "dotnet";
-            string name = "roslyn";
-
-            InMemoryCredentialStore credentials = new InMemoryCredentialStore(Credentials.Anonymous);
-            ObservableGitHubClient client = new ObservableGitHubClient(new ProductHeaderValue("GitHubApiDemo"), credentials);
-
-            try
-            {
-                var user = await client.User.Current();
-                var issue =  await client.Issue.Get(owner, name, 39058);
-
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.ToString());
-            }
-        }
+        
     }
 }
