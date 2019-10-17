@@ -311,134 +311,134 @@ namespace GitHubApiDemo
                 TotalCount = totalCount;
                 Items = items;
 
-                #region Pull Requests
-                if (!File.Exists("C:\\PhD\\Research Play Zone\\PCI_WebTrace\\Roslyn\\PullResults.xml"))
-                {
-                    XmlDocument xmlDoc = new XmlDocument();
-                    XmlNode rootNode = xmlDoc.CreateElement("PullResults");
-                    xmlDoc.AppendChild(rootNode);
-
-                    foreach (var item in items)
-                    {
-                        Octokit.Issue m = item as Octokit.Issue;
-                        if (m != null)
-                        {
-                            XmlNode pullRequestNode = xmlDoc.CreateElement("PullRequest");
-                            XmlAttribute attribute = xmlDoc.CreateAttribute("ID");
-                            attribute.Value = m.Number.ToString();
-                            pullRequestNode.Attributes.Append(attribute);
-                            XmlAttribute attribute2 = xmlDoc.CreateAttribute("Title");
-                            attribute2.Value = m.Title?.ToString();
-                            pullRequestNode.Attributes.Append(attribute2);
-                            XmlAttribute attribute3 = xmlDoc.CreateAttribute("Body");
-                            attribute3.Value = m.Body?.ToString();
-                            pullRequestNode.Attributes.Append(attribute3);
-                            pullRequestNode.InnerText = m.Id.ToString();
-                            rootNode.AppendChild(pullRequestNode);
-                        }
-                    }
-                    xmlDoc.Save("C:\\PhD\\Research Play Zone\\PCI_WebTrace\\Roslyn\\PullResults.xml");
-                }
-                else
-                {
-                    XmlDocument xmlDoc = new XmlDocument();
-                    xmlDoc.Load("C:\\PhD\\Research Play Zone\\PCI_WebTrace\\Roslyn\\PullResults.xml");
-                    XmlNode rootNode = xmlDoc["PullRequests"];
-
-                    foreach (var item in items)
-                    {
-                        Octokit.Issue m = item as Octokit.Issue;
-
-                        if (m != null)
-                        {
-                            XmlNode pullRequestNode = xmlDoc.CreateElement("PullRequest");
-                            XmlElement elemID = xmlDoc.CreateElement("PullRequestID");
-                            elemID.InnerText = m.Number.ToString();
-                            //Add the node to the document.
-                            pullRequestNode.AppendChild(elemID);
-
-                            XmlElement elemRepoID = xmlDoc.CreateElement("RepoID");
-                            elemRepoID.InnerText = 1.ToString();
-                            //Add the node to the document.
-                            pullRequestNode.AppendChild(elemRepoID);
-
-
-                            XmlElement elemTitle = xmlDoc.CreateElement("Title");
-                            elemTitle.InnerText = m.Title.ToString();
-                            //Add the node to the document.
-                            pullRequestNode.AppendChild(elemTitle);
-
-                            XmlElement elemDescription = xmlDoc.CreateElement("PullRequestDescription");
-                            elemDescription.InnerText = m.Body.ToString();
-                            //Add the node to the document.
-                            pullRequestNode.AppendChild(elemDescription);
-
-                            XmlElement elemOpenedAt = xmlDoc.CreateElement("CreatedDate");
-                            elemOpenedAt.InnerText = m.CreatedAt.ToString("dd/MM/yyyy");
-                            //Add the node to the document.
-                            pullRequestNode.AppendChild(elemOpenedAt);
-
-                            XmlElement elemClosedAt = xmlDoc.CreateElement("ClosedDate");
-                            elemClosedAt.InnerText = m.ClosedAt?.ToString("dd/MM/yyyy");
-                            //Add the node to the document.
-                            pullRequestNode.AppendChild(elemClosedAt);
-
-
-                            rootNode.AppendChild(pullRequestNode);
-                           
-                        }
-
-                    }
-                    xmlDoc.Save("C:\\PhD\\Research Play Zone\\PCI_WebTrace\\Roslyn\\PullResults.xml");
-                }
-                #endregion Pull Requests
-
-                #region Issues 
-
-                //XmlDocument xmlDoc = new XmlDocument();
-                //xmlDoc.Load("C:\\PhD\\Research Play Zone\\PCI_WebTrace\\Roslyn\\IssueResults.xml");
-                //XmlNode rootNode = xmlDoc["Issues"];
-
-                //foreach (var item in items)
+                //#region Pull Requests
+                //if (!File.Exists("C:\\PhD\\Research Play Zone\\PCI_WebTrace\\Roslyn\\PullResults.xml"))
                 //{
-                //    Octokit.Issue m = item as Octokit.Issue;
+                //    XmlDocument xmlDoc = new XmlDocument();
+                //    XmlNode rootNode = xmlDoc.CreateElement("PullResults");
+                //    xmlDoc.AppendChild(rootNode);
 
-                //    if (m != null)
+                //    foreach (var item in items)
                 //    {
-                //        XmlNode IssueNode = xmlDoc.CreateElement("Issue");
-                //        XmlElement elemID = xmlDoc.CreateElement("IssueID");
-                //        elemID.InnerText = m.Number.ToString();
-                //        IssueNode.AppendChild(elemID);
-
-                //        XmlElement elemRepoID = xmlDoc.CreateElement("RepoID");
-                //        elemRepoID.InnerText = 1.ToString();
-                //        IssueNode.AppendChild(elemRepoID);
-
-                //        XmlElement elemTitle = xmlDoc.CreateElement("Title");
-                //        //elemTitle.InnerText = m.Title?.Length > 200 ? m.Title?.Substring(0, 200) : m.Title?.ToString();
-                //        elemTitle.InnerText = m.Title?.ToString();
-                //        IssueNode.AppendChild(elemTitle);
-
-                //        XmlElement elemDescription = xmlDoc.CreateElement("Description");
-                //        // elemDescription.InnerText = m.Body?.Length > 200 ? m.Body?.Substring(0,200) : m.Body?.ToString();
-                //        elemDescription.InnerText = m.Body.ToString();
-                //        IssueNode.AppendChild(elemDescription);
-
-                //        XmlElement elemOpenedAt = xmlDoc.CreateElement("CreatedDate");
-                //        elemOpenedAt.InnerText = m.CreatedAt.ToString("dd/MM/yyyy");
-                //        IssueNode.AppendChild(elemOpenedAt);
-
-                //        XmlElement elemClosedAt = xmlDoc.CreateElement("ClosedDate");
-                //        elemClosedAt.InnerText = m.ClosedAt?.ToString("dd/MM/yyyy");
-                //        IssueNode.AppendChild(elemClosedAt);
-
-                //        rootNode.AppendChild(IssueNode);
+                //        Octokit.Issue m = item as Octokit.Issue;
+                //        if (m != null)
+                //        {
+                //            XmlNode pullRequestNode = xmlDoc.CreateElement("PullRequest");
+                //            XmlAttribute attribute = xmlDoc.CreateAttribute("ID");
+                //            attribute.Value = m.Number.ToString();
+                //            pullRequestNode.Attributes.Append(attribute);
+                //            XmlAttribute attribute2 = xmlDoc.CreateAttribute("Title");
+                //            attribute2.Value = m.Title?.ToString();
+                //            pullRequestNode.Attributes.Append(attribute2);
+                //            XmlAttribute attribute3 = xmlDoc.CreateAttribute("Body");
+                //            attribute3.Value = m.Body?.ToString();
+                //            pullRequestNode.Attributes.Append(attribute3);
+                //            pullRequestNode.InnerText = m.Id.ToString();
+                //            rootNode.AppendChild(pullRequestNode);
+                //        }
                 //    }
-
-
-                //    xmlDoc.Save("C:\\PhD\\Research Play Zone\\PCI_WebTrace\\Roslyn\\IssueResults.xml");
+                //    xmlDoc.Save("C:\\PhD\\Research Play Zone\\PCI_WebTrace\\Roslyn\\PullResults.xml");
                 //}
-                #endregion Issues
+                //else
+                //{
+                //    XmlDocument xmlDoc = new XmlDocument();
+                //    xmlDoc.Load("C:\\PhD\\Research Play Zone\\PCI_WebTrace\\Roslyn\\PullResults.xml");
+                //    XmlNode rootNode = xmlDoc["PullRequests"];
+
+                //    foreach (var item in items)
+                //    {
+                //        Octokit.Issue m = item as Octokit.Issue;
+
+                //        if (m != null)
+                //        {
+                //            XmlNode pullRequestNode = xmlDoc.CreateElement("PullRequest");
+                //            XmlElement elemID = xmlDoc.CreateElement("PullRequestID");
+                //            elemID.InnerText = m.Number.ToString();
+                //            //Add the node to the document.
+                //            pullRequestNode.AppendChild(elemID);
+
+                //            XmlElement elemRepoID = xmlDoc.CreateElement("RepoID");
+                //            elemRepoID.InnerText = 1.ToString();
+                //            //Add the node to the document.
+                //            pullRequestNode.AppendChild(elemRepoID);
+
+
+                //            XmlElement elemTitle = xmlDoc.CreateElement("Title");
+                //            elemTitle.InnerText = m.Title.ToString();
+                //            //Add the node to the document.
+                //            pullRequestNode.AppendChild(elemTitle);
+
+                //            XmlElement elemDescription = xmlDoc.CreateElement("PullRequestDescription");
+                //            elemDescription.InnerText = m.Body.ToString();
+                //            //Add the node to the document.
+                //            pullRequestNode.AppendChild(elemDescription);
+
+                //            XmlElement elemOpenedAt = xmlDoc.CreateElement("CreatedDate");
+                //            elemOpenedAt.InnerText = m.CreatedAt.ToString("dd/MM/yyyy");
+                //            //Add the node to the document.
+                //            pullRequestNode.AppendChild(elemOpenedAt);
+
+                //            XmlElement elemClosedAt = xmlDoc.CreateElement("ClosedDate");
+                //            elemClosedAt.InnerText = m.ClosedAt?.ToString("dd/MM/yyyy");
+                //            //Add the node to the document.
+                //            pullRequestNode.AppendChild(elemClosedAt);
+
+
+                //            rootNode.AppendChild(pullRequestNode);
+                           
+                //        }
+
+                //    }
+                //    xmlDoc.Save("C:\\PhD\\Research Play Zone\\PCI_WebTrace\\Roslyn\\PullResults.xml");
+                //}
+                //#endregion Pull Requests
+
+                //#region Issues 
+
+                ////XmlDocument xmlDoc = new XmlDocument();
+                ////xmlDoc.Load("C:\\PhD\\Research Play Zone\\PCI_WebTrace\\Roslyn\\IssueResults.xml");
+                ////XmlNode rootNode = xmlDoc["Issues"];
+
+                ////foreach (var item in items)
+                ////{
+                ////    Octokit.Issue m = item as Octokit.Issue;
+
+                ////    if (m != null)
+                ////    {
+                ////        XmlNode IssueNode = xmlDoc.CreateElement("Issue");
+                ////        XmlElement elemID = xmlDoc.CreateElement("IssueID");
+                ////        elemID.InnerText = m.Number.ToString();
+                ////        IssueNode.AppendChild(elemID);
+
+                ////        XmlElement elemRepoID = xmlDoc.CreateElement("RepoID");
+                ////        elemRepoID.InnerText = 1.ToString();
+                ////        IssueNode.AppendChild(elemRepoID);
+
+                ////        XmlElement elemTitle = xmlDoc.CreateElement("Title");
+                ////        //elemTitle.InnerText = m.Title?.Length > 200 ? m.Title?.Substring(0, 200) : m.Title?.ToString();
+                ////        elemTitle.InnerText = m.Title?.ToString();
+                ////        IssueNode.AppendChild(elemTitle);
+
+                ////        XmlElement elemDescription = xmlDoc.CreateElement("Description");
+                ////        // elemDescription.InnerText = m.Body?.Length > 200 ? m.Body?.Substring(0,200) : m.Body?.ToString();
+                ////        elemDescription.InnerText = m.Body.ToString();
+                ////        IssueNode.AppendChild(elemDescription);
+
+                ////        XmlElement elemOpenedAt = xmlDoc.CreateElement("CreatedDate");
+                ////        elemOpenedAt.InnerText = m.CreatedAt.ToString("dd/MM/yyyy");
+                ////        IssueNode.AppendChild(elemOpenedAt);
+
+                ////        XmlElement elemClosedAt = xmlDoc.CreateElement("ClosedDate");
+                ////        elemClosedAt.InnerText = m.ClosedAt?.ToString("dd/MM/yyyy");
+                ////        IssueNode.AppendChild(elemClosedAt);
+
+                ////        rootNode.AppendChild(IssueNode);
+                ////    }
+
+
+                ////    xmlDoc.Save("C:\\PhD\\Research Play Zone\\PCI_WebTrace\\Roslyn\\IssueResults.xml");
+                ////}
+                //#endregion Issues
             }
             #endregion // Constructors
 
